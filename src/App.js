@@ -1,28 +1,71 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import jwt_decode from 'jwt-decode'
+import setAuthToken from './utils/setAuthToken'
+import { setCurrentUser, logoutUser } from './actions/authActions'
+import { Provider } from 'react-redux'
+import store from './store'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+import Navbar from './components/layout/Navbar'
+import Landing from './components/layout/Landing'
+
+import A from './components/a/A'
+import B from './components/b/B'
+import C from './components/c/C'
+
+import More from './components/more/More.js'
+import Register from './components/auth/Register'
+import Login from './components/auth/Login'
+import User from './components/user/User'
+
+import './App.css'
+
+// Check for token
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  setAuthToken(localStorage.jwtToken)
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(localStorage.jwtToken)
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded))
+
+  // Check for expired token
+  const currentTime = Date.now() / 1000
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser())
+    // TODO: Clear current Profile
+
+    // Redirect to login
+    window.location.href = '/'
   }
 }
 
-export default App;
+class App extends Component {
+  render () {
+    return (
+      <Provider store={store}>
+        <Router>
+          <Switch>
+            <div className='App'>
+              <Navbar />
+              <Route exact path='/' component={Landing} />
+              <div className='container'>
+                <Route exact path='/a' component={A} />
+                <Route exact path='/b' component={B} />
+                <Route exact path='/c' component={C} />
+                <Route exact path='/register' component={Register} />
+                <Route exact path='/login' component={Login} />
+                <Route exact path='/more' component={More} />
+                <Route exact path='/user' component={User} />
+              </div>
+              {/* <Footer /> */}
+            </div>
+          </Switch>
+        </Router>
+      </Provider>
+    )
+  }
+}
+
+export default App
