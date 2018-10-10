@@ -19,13 +19,13 @@ class A extends Component {
   }
 
   componentDidMount () {
-    if (this.props.fakeAuth.isAuthenticated) {
+    if (this.props.fakeAuth.isFakeAuthenticated) {
       this.props.history.push('/c')
     }
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.fakeAuth.isAuthenticated) {
+    if (nextProps.fakeAuth.isFakeAuthenticated) {
       this.props.history.push('/c')
     }
 

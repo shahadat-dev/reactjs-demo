@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 import setAuthToken from './utils/setAuthToken'
 import { setCurrentUser, logoutUser } from './actions/authActions'
+import { setFakeCurrentUser } from './actions/fakeAuthActions'
 import { Provider } from 'react-redux'
 import store from './store'
 
@@ -19,6 +20,15 @@ import Login from './components/auth/Login'
 import User from './components/user/User'
 
 import './App.css'
+
+// Check for fakeToken
+if (localStorage.fakeToken) {
+  // Set auth token header auth
+  setAuthToken(localStorage.fakeToken)
+
+  // Set user and isAuthenticated
+  store.dispatch(setFakeCurrentUser(localStorage.fakeUser))
+}
 
 // Check for token
 if (localStorage.jwtToken) {

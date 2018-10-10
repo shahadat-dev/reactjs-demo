@@ -14,6 +14,7 @@ export const fakeLogin = userData => dispatch => {
       if (token) {
         // Set token to ls
         localStorage.setItem('fakeToken', token)
+        localStorage.setItem('fakeUser', JSON.stringify(userData))
         // Set token to Auth header
         setAuthToken(token)
         // Set current user
@@ -49,7 +50,7 @@ export const setFakeCurrentUser = userData => {
 }
 
 // Log user out
-export const logoutUser = () => dispatch => {
+export const logoutFakeUser = () => dispatch => {
   // Remove token from localStorage
   localStorage.removeItem('fakeToken')
   // Remove auth header for future requests
@@ -57,5 +58,5 @@ export const logoutUser = () => dispatch => {
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setFakeCurrentUser({}))
   // Redirect to login
-  window.location.href = '/'
+  window.location.href = '/b'
 }

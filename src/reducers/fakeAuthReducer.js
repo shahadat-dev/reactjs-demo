@@ -2,8 +2,8 @@ import isEmpty from 'lodash/isEmpty'
 import { SET_FAKE_CURRENT_USER } from '../actions/types'
 
 const initialState = {
-  isAuthenticated: false,
-  user: {}
+  isFakeAuthenticated: false,
+  fakeUser: {}
 }
 
 export default function (state = initialState, action) {
@@ -11,8 +11,8 @@ export default function (state = initialState, action) {
     case SET_FAKE_CURRENT_USER:
       return {
         ...state,
-        isAuthenticated: !isEmpty(action.payload),
-        user: action.payload
+        isFakeAuthenticated: !isEmpty(action.payload),
+        fakeUser: action.payload
       }
     default:
       return state

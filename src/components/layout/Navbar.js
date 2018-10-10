@@ -11,6 +11,8 @@ class Navbar extends Component {
   }
   render () {
     const { isAuthenticated, user } = this.props.auth
+    const { isFakeAuthenticated, fakeUser } = this.props.fakeAuth
+
     const authLinks = (
       <a
         onClick={this.onLogoutClick.bind(this)}
@@ -42,12 +44,14 @@ class Navbar extends Component {
             <li className='nav-item'>
               <Link className='nav-link' to='/a'>A</Link>
             </li>
-            <li className='nav-item'>
-              <Link className='nav-link' to='/b'>B</Link>
-            </li>
-            <li className='nav-item'>
-              <Link className='nav-link' to='/c'>C</Link>
-            </li>
+            {!isFakeAuthenticated &&
+              <li className='nav-item'>
+                <Link className='nav-link' to='/b'>B(Login)</Link>
+              </li>}
+            {isFakeAuthenticated &&
+              <li className='nav-item'>
+                <Link className='nav-link' to='/c'>C(Dashboard)</Link>
+              </li>}
             <li className='nav-item'>
               <Link className='nav-link' to='/more'>More</Link>
             </li>
@@ -71,11 +75,13 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  fakeAuth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  fakeAuth: state.fakeAuth
 })
 
 export default connect(mapStateToProps, { logoutUser })(Navbar)

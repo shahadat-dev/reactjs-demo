@@ -3,23 +3,31 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Message from '../common/Message'
 import { withRouter } from 'react-router-dom'
+import Pagination from 'react-js-pagination'
+import Spinner from '../common/Spinner'
+import { logoutFakeUser } from '../../actions/fakeAuthActions'
+import { listFakeUsers } from '../../actions/fakeUserActions'
 
 class C extends Component {
   constructor () {
     super()
     this.state = {
+      fakeUsers: {},
       server: {},
-      errors: {}
+      errors: {},
+      activePage: 1
     }
 
-    // this.changeHandler = this.changeHandler.bind(this)
     // this.submitHandler = this.submitHandler.bind(this)
   }
   componentDidMount () {
     console.log(this.props.fakeAuth)
-    if (!this.props.fakeAuth.isAuthenticated) {
+    if (!this.props.fakeAuth.isFakeAuthenticated) {
       this.props.history.push('/')
     }
+
+    // Get users
+    this.props.listFakeUsers(this.state.activePage)
   }
   componentWillReceiveProps (nextProps) {
     if (nextProps.errors) {
@@ -28,28 +36,101 @@ class C extends Component {
     if (nextProps.server) {
       this.setState({ server: nextProps.server })
     }
+    if (nextProps.fakeUsers) {
+      this.setState({ fakeUsers: nextProps.fakeUsers })
+    }
+  }
+
+  fakeLogoutHandler () {
+    // Logout fake user
+    this.props.logoutFakeUser()
+  }
+
+  handlePageChange (pageNumber) {
+    console.log(`active page is ${pageNumber}`)
+    this.setState({ activePage: pageNumber })
+    this.props.listFakeUsers(pageNumber)
   }
   render () {
+    console.log(this.state)
     const { success, error } = this.state.server
-    return (
-      <div className='row justify-content-center p-5'>
+    const { isFakeAuthenticated } = this.props.fakeAuth
+    const users = this.state.fakeUsers.fakeUsers
+      ? this.state.fakeUsers.fakeUsers.data
+      : []
+
+    const content = this.state.fakeUsers.loading
+      ? <Spinner />
+      : <div className='row justify-content-center p-5'>
         <div className='col-sm-6 mb-10'>
-          <h3 className='h3 pb-1'>C</h3>
+
+          {isFakeAuthenticated &&
+          <button
+            onClick={this.fakeLogoutHandler.bind(this)}
+            className='badge badge-danger float-right'
+              >
+                Logout
+              </button>}
+          <h3 className='h3 pb-1'>Dashboard</h3>
+
           {success && <Message msg={success} type='alert-success' />}
           {error && <Message msg={error} type='alert-danger' />}
         </div>
+        <div>
+          <table className='table table-striped'>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users &&
+                  users.map(user => (
+                    <tr>
+                      <td>{user.id}</td>
+                      <td>{user.first_name}</td>
+                      <td>{user.last_name}</td>
+                    </tr>
+                  ))}
+
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>
+                  <Pagination
+                    activePage={this.state.activePage}
+                    itemsCountPerPage={3}
+                    totalItemsCount={12}
+                    pageRangeDisplayed={5}
+                    onChange={this.handlePageChange.bind(this)}
+                    linkClass='page-link'
+                    itemClass='page-item'
+                    />
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <div />
+        </div>
       </div>
-    )
+    return content
   }
 }
 
 C.propTypes = {
+  listFakeUsers: PropTypes.func.isRequired,
+  logoutFakeUser: PropTypes.func.isRequired,
   fakeAuth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
   fakeAuth: state.fakeAuth,
-  server: state.server
+  server: state.server,
+  fakeUsers: state.fakeUsers
 })
 
-export default connect(mapStateToProps, {})(withRouter(C))
+export default connect(mapStateToProps, { listFakeUsers, logoutFakeUser })(
+  withRouter(C)
+)
