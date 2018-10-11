@@ -21,7 +21,7 @@ export const fakeLogin = userData => dispatch => {
         dispatch(setFakeCurrentUser(userData))
         dispatch({
           type: SERVER_RESPONSE,
-          payload: { success: `You are logged is as ${userData.email}` }
+          payload: { success: `You are logged is as: ${userData.email}` }
         })
       } else {
         dispatch({

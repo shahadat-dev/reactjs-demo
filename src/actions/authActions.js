@@ -2,14 +2,25 @@ import axios from 'axios'
 import setAuthToken from '../utils/setAuthToken'
 import jwt_decode from 'jwt-decode'
 
-import { GET_ERRORS, SET_CURRENT_USER, LIST_USERS } from './types'
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  LIST_USERS,
+  SERVER_RESPONSE
+} from './types'
 import { SERVER_URL } from '../config/url'
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post(SERVER_URL + '/api/users/register', userData)
-    .then(res => history.push('/'))
+    .then(res => {
+      dispatch({
+        type: SERVER_RESPONSE,
+        payload: { success: `Welcome! You have been registered successfully.` }
+      })
+      // history.push('/login')
+    })
     .catch(err => {
       console.log(err)
       if (err.response) {
@@ -65,25 +76,5 @@ export const logoutUser = () => dispatch => {
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}))
   // Redirect to login
-  window.location.href = '/'
-}
-
-// Get users list
-export const listUser = () => dispatch => {
-  axios
-    .get(SERVER_URL + '/api/users/')
-    .then(res => {
-      dispatch({
-        type: LIST_USERS,
-        payload: res.data
-      })
-    })
-    .catch(err => {
-      if (err.response) {
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.response.data
-        })
-      }
-    })
+  window.location.href = '/more'
 }

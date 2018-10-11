@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Message from '../common/Message'
 import { withRouter } from 'react-router-dom'
 import Pagination from 'react-js-pagination'
+import Message from '../common/Message'
 import Spinner from '../common/Spinner'
 import { logoutFakeUser } from '../../actions/fakeAuthActions'
 import { listFakeUsers } from '../../actions/fakeUserActions'
@@ -73,46 +73,49 @@ class C extends Component {
               </button>}
           <h3 className='h3 pb-1'>Dashboard</h3>
 
-          {success && <Message msg={success} type='alert-success' />}
-          {error && <Message msg={error} type='alert-danger' />}
-        </div>
-        <div>
-          <table className='table table-striped'>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users &&
-                  users.map(user => (
-                    <tr>
-                      <td>{user.id}</td>
-                      <td>{user.first_name}</td>
-                      <td>{user.last_name}</td>
-                    </tr>
-                  ))}
+          {/* {success && <Message msg={success} type='alert-success' />}
+            {error && <Message msg={error} type='alert-danger' />} */}
+          <h5 className='bg-light p-1'>
+              Logged in as: {JSON.parse(this.props.fakeAuth.fakeUser).email}
+          </h5>
 
-            </tbody>
-            <tfoot>
-              <tr>
-                <td>
-                  <Pagination
-                    activePage={this.state.activePage}
-                    itemsCountPerPage={3}
-                    totalItemsCount={12}
-                    pageRangeDisplayed={5}
-                    onChange={this.handlePageChange.bind(this)}
-                    linkClass='page-link'
-                    itemClass='page-item'
-                    />
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-          <div />
+          <div>
+            <table className='table table-striped'>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users &&
+                    users.map(user => (
+                      <tr>
+                        <td>{user.id}</td>
+                        <td>{user.first_name}</td>
+                        <td>{user.last_name}</td>
+                      </tr>
+                    ))}
+
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>
+                    <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={3}
+                      totalItemsCount={12}
+                      pageRangeDisplayed={5}
+                      onChange={this.handlePageChange.bind(this)}
+                      linkClass='page-link'
+                      itemClass='page-item'
+                      />
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
       </div>
     return content

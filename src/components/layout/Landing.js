@@ -7,7 +7,7 @@ class Landing extends Component {
       <div className='row justify-content-center p-5'>
         <div className='col-sm-6 mb-10'>
           <div>
-            <h3 className='h3 pb-1'>Abu Jobaer</h3>
+            <h3 className='h3 pb-1'>Jobaer Sajeeb</h3>
             <hr />
           </div>
           <div className='text-right'>

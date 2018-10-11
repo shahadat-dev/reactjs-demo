@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import Message from '../common/Message'
 import { loginUser } from '../../actions/authActions'
 import TextFieldGroup from '../common/TextFieldGroup'
 
@@ -11,7 +12,8 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      errors: {}
+      errors: {},
+      server: {}
     }
 
     this.changeHandler = this.changeHandler.bind(this)
@@ -31,6 +33,10 @@ class Login extends Component {
 
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors })
+    }
+
+    if (nextProps.server) {
+      this.setState({ server: nextProps.server })
     }
   }
 
@@ -53,12 +59,15 @@ class Login extends Component {
 
   render () {
     const { errors } = this.state
-    console.log(errors)
+    const { success, error } = this.state.server
+    console.log(this.state, success, error)
     return (
       <div className='container center'>
         <div className='row justify-content-center p-5'>
 
           <div className='col-sm-6 mb-10'>
+            {success && <Message msg={success} type='alert-success' />}
+            {error && <Message msg={error} type='alert-danger' />}
             <h3 className='h3 pb-1'>Admin Panel Login</h3>
             <hr />
             <form onSubmit={this.submitHandler}>
@@ -104,12 +113,14 @@ class Login extends Component {
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  server: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  server: state.server
 })
 
 export default connect(mapStateToProps, { loginUser })(withRouter(Login))

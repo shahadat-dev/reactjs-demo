@@ -19,7 +19,7 @@ class Navbar extends Component {
         href='#'
         className='badge badge-danger'
       >
-        Logout
+        Logout from Real Server
       </a>
     )
 

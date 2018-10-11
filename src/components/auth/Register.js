@@ -10,9 +10,7 @@ class Register extends Component {
   constructor () {
     super()
     this.state = {
-      username: '',
-      firstName: '',
-      lastName: '',
+      name: '',
       email: '',
       password: '',
       password2: '',
@@ -44,18 +42,14 @@ class Register extends Component {
     event.preventDefault()
     // console.log(this.state)
     const newUser = {
-      firstName: this.state.firstName,
-      middleName: this.state.middleName,
-      lastName: this.state.lastName,
+      name: this.state.name,
       email: this.state.email,
-      username: this.state.username,
       password: this.state.password,
-      password2: this.state.password2,
-      homePhone: this.state.homePhone,
-      cellularPhone: this.state.cellularPhone
+      password2: this.state.password2
     }
-
+    console.log(newUser)
     this.props.registerUser(newUser, this.props.history)
+    this.props.history.push('/login')
   }
   render () {
     const { errors } = this.state
@@ -78,47 +72,14 @@ class Register extends Component {
             >
               <fieldset>
                 <div className='form-group'>
-                  <label htmlFor='firstName'>First Name</label>
+                  <label htmlFor='name'>Name</label>
                   <TextFieldGroup
-                    placeholder='Enter First Name'
-                    name='firstName'
-                    id='firstName'
-                    value={this.state.firstName}
+                    placeholder='Enter Name'
+                    name='name'
+                    id='name'
+                    value={this.state.name}
                     onChange={this.changeHandler}
-                    error={errors.firstName}
-                  />
-                </div>
-                <div className='form-group'>
-                  <label htmlFor='middleName'>Middle Name</label>
-                  <TextFieldGroup
-                    placeholder='Enter Middle Name'
-                    name='middleName'
-                    id='middleName'
-                    value={this.state.middleName}
-                    onChange={this.changeHandler}
-                    error={errors.middleName}
-                  />
-                </div>
-                <div className='form-group'>
-                  <label htmlFor='lastName'>Last Name</label>
-                  <TextFieldGroup
-                    placeholder='Enter Last Name'
-                    name='lastName'
-                    id='lastName'
-                    value={this.state.lastName}
-                    onChange={this.changeHandler}
-                    error={errors.lastName}
-                  />
-                </div>
-                <div className='form-group'>
-                  <label htmlFor='username'>Username</label>
-                  <TextFieldGroup
-                    placeholder='Enter Username'
-                    name='username'
-                    id='username'
-                    value={this.state.username}
-                    onChange={this.changeHandler}
-                    error={errors.username}
+                    error={errors.name}
                   />
                 </div>
                 <div className='form-group'>
@@ -155,28 +116,6 @@ class Register extends Component {
                     value={this.state.password2}
                     onChange={this.changeHandler}
                     error={errors.password2}
-                  />
-                </div>
-                <div className='form-group'>
-                  <label htmlFor='homePhone'>Home Phone</label>
-                  <TextFieldGroup
-                    placeholder='Enter Home Phone'
-                    name='homePhone'
-                    id='homePhone'
-                    value={this.state.homePhone}
-                    onChange={this.changeHandler}
-                    error={errors.homePhone}
-                  />
-                </div>
-                <div className='form-group'>
-                  <label htmlFor='cellularPhone'>Cellular Phone</label>
-                  <TextFieldGroup
-                    placeholder='Enter Cellular Phone'
-                    name='cellularPhone'
-                    id='cellularPhone'
-                    value={this.state.cellularPhone}
-                    onChange={this.changeHandler}
-                    error={errors.cellularPhone}
                   />
                 </div>
 

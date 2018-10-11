@@ -20,6 +20,7 @@ import Login from './components/auth/Login'
 import User from './components/user/User'
 
 import './App.css'
+import Dashboard from './components/pages/Dashboard'
 
 // Check for fakeToken
 if (localStorage.fakeToken) {
@@ -68,6 +69,7 @@ class App extends Component {
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/more' component={More} />
                 <Route exact path='/user' component={User} />
+                <Route exact path='/dashboard' component={Dashboard} />
               </div>
               {/* <Footer /> */}
             </div>

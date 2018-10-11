@@ -15,10 +15,12 @@ export const listUsers = () => dispatch => {
       })
     })
     .catch(err => {
-      /* dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      }) */
+      if (err.response) {
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      }
       console.log(err)
     })
 }
