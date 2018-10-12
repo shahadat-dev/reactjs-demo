@@ -28,7 +28,7 @@ if (localStorage.fakeToken) {
   setAuthToken(localStorage.fakeToken)
 
   // Set user and isAuthenticated
-  store.dispatch(setFakeCurrentUser(localStorage.fakeUser))
+  store.dispatch(setFakeCurrentUser(JSON.parse(localStorage.fakeUser)))
 }
 
 // Check for token
@@ -62,14 +62,14 @@ class App extends Component {
               <Navbar />
               <Route exact path='/' component={Landing} />
               <div className='container'>
-                <Route exact path='/a' component={A} />
-                <Route exact path='/b' component={B} />
-                <Route exact path='/c' component={C} />
-                <Route exact path='/register' component={Register} />
-                <Route exact path='/login' component={Login} />
-                <Route exact path='/more' component={More} />
-                <Route exact path='/user' component={User} />
-                <Route exact path='/dashboard' component={Dashboard} />
+                <Route exact path='/a/' component={A} />
+                <Route exact path='/b/' component={B} />
+                <Route exact path='/c/' component={C} />
+                <Route exact path='/register/' component={Register} />
+                <Route exact path='/login/' component={Login} />
+                <Route exact path='/more/' component={More} />
+                <Route exact path='/user/' component={User} />
+                <Route exact path='/dashboard/' component={Dashboard} />
               </div>
               {/* <Footer /> */}
             </div>

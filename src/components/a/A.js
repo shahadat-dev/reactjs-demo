@@ -3,9 +3,9 @@ import $ from 'jquery'
 import 'jquery-ui-dist/jquery-ui'
 
 class A extends Component {
-  // componentDidMount () {
-  //   this.modal()
-  // }
+  componentDidMount () {
+    this.modal()
+  }
 
   clickHandler (e) {
     e.preventDefault()

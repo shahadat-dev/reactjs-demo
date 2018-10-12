@@ -56,9 +56,7 @@ class C extends Component {
     const { success, error } = this.state.server
     const { isFakeAuthenticated } = this.props.fakeAuth
 
-    const user = isFakeAuthenticated
-      ? JSON.parse(this.props.fakeAuth.fakeUser).email
-      : null
+    const user = isFakeAuthenticated ? this.props.fakeAuth.fakeUser.email : null
 
     const users = this.state.fakeUsers.fakeUsers
       ? this.state.fakeUsers.fakeUsers.data
@@ -72,10 +70,10 @@ class C extends Component {
           {isFakeAuthenticated &&
           <button
             onClick={this.fakeLogoutHandler.bind(this)}
-            className='badge badge-danger float-right'
+            className='badge badge-danger float-right p-2'
               >
-                Logout
-              </button>}
+            <span className='h6'>Logout</span>
+          </button>}
           <h3 className='h3 pb-1'>Dashboard</h3>
 
           {/* {success && <Message msg={success} type='alert-success' />}
@@ -84,22 +82,22 @@ class C extends Component {
               Logged in as: {user}
           </h5>
 
-          <div>
-            <table className='table table-striped'>
+          <div className='container'>
+            <table className='table table-striped table-hover'>
               <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
+                <tr className='row'>
+                  <th scope='col' className='col-sm-2'>Id</th>
+                  <th scope='col' className='col-sm-5'>First_Name</th>
+                  <th scope='col' className='col-sm-5'>Last_Name</th>
                 </tr>
               </thead>
               <tbody>
                 {users &&
                     users.map(user => (
-                      <tr>
-                        <td>{user.id}</td>
-                        <td>{user.first_name}</td>
-                        <td>{user.last_name}</td>
+                      <tr className='row'>
+                        <td className='col-sm-2'>{user.id}</td>
+                        <td className='col-sm-5'>{user.first_name}</td>
+                        <td className='col-sm-5'>{user.last_name}</td>
                       </tr>
                     ))}
 

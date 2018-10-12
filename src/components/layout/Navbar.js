@@ -17,9 +17,9 @@ class Navbar extends Component {
       <a
         onClick={this.onLogoutClick.bind(this)}
         href='#'
-        className='badge badge-danger'
+        className='badge badge-danger p-2'
       >
-        Logout from Real Server
+        <span className='h6'>Logout from Real Server</span>
       </a>
     )
 
@@ -42,18 +42,18 @@ class Navbar extends Component {
 
           <ul className='navbar-nav mr-auto'>
             <li className='nav-item'>
-              <Link className='nav-link' to='/a'>A</Link>
+              <Link className='nav-link' to='/a/'>A</Link>
             </li>
             {!isFakeAuthenticated &&
               <li className='nav-item'>
-                <Link className='nav-link' to='/b'>B(Login)</Link>
+                <Link className='nav-link' to='/b/'>B(Login)</Link>
               </li>}
             {isFakeAuthenticated &&
               <li className='nav-item'>
-                <Link className='nav-link' to='/c'>C(Dashboard)</Link>
+                <Link className='nav-link' to='/c/'>C(Dashboard)</Link>
               </li>}
             <li className='nav-item'>
-              <Link className='nav-link' to='/more'>More</Link>
+              <Link className='nav-link' to='/more/'>More</Link>
             </li>
           </ul>
           : <ul className='navbar-nav mr-auto' />
