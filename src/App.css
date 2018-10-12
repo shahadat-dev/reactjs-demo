@@ -1,0 +1,13 @@
+.modal {
+  border: 4px solid #ccc;
+  width: 150px;
+  height: 150px;
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+.modal i {
+  cursor: pointer;
+}

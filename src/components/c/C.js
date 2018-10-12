@@ -55,6 +55,11 @@ class C extends Component {
     console.log(this.state)
     const { success, error } = this.state.server
     const { isFakeAuthenticated } = this.props.fakeAuth
+
+    const user = isFakeAuthenticated
+      ? JSON.parse(this.props.fakeAuth.fakeUser).email
+      : null
+
     const users = this.state.fakeUsers.fakeUsers
       ? this.state.fakeUsers.fakeUsers.data
       : []
@@ -76,7 +81,7 @@ class C extends Component {
           {/* {success && <Message msg={success} type='alert-success' />}
             {error && <Message msg={error} type='alert-danger' />} */}
           <h5 className='bg-light p-1'>
-              Logged in as: {JSON.parse(this.props.fakeAuth.fakeUser).email}
+              Logged in as: {user}
           </h5>
 
           <div>
