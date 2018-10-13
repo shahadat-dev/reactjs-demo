@@ -1,4 +1,4 @@
-.modal {
+.test {
   border: 4px solid #ccc;
   width: 150px;
   height: 150px;
@@ -8,6 +8,6 @@
   top: 50%;
 }
 
-.modal i {
+.test i {
   cursor: pointer;
 }

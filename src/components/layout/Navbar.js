@@ -11,7 +11,7 @@ class Navbar extends Component {
   }
   render () {
     const { isAuthenticated, user } = this.props.auth
-    const { isFakeAuthenticated, fakeUser } = this.props.fakeAuth
+    const { isFakeAuthenticated } = this.props.fakeAuth
 
     const authLinks = (
       <a

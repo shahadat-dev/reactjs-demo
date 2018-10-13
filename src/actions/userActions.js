@@ -8,7 +8,6 @@ export const listUsers = () => dispatch => {
   axios
     .get(SERVER_URL + '/api/users/list')
     .then(res => {
-      console.log('action get called')
       dispatch({
         type: LIST_USERS,
         payload: res.data
@@ -21,6 +20,5 @@ export const listUsers = () => dispatch => {
           payload: err.response.data
         })
       }
-      console.log(err)
     })
 }

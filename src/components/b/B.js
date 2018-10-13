@@ -7,7 +7,7 @@ import { fakeLogin } from '../../actions/fakeAuthActions'
 
 import validateLoginInput from '../validation/auth/login'
 
-class A extends Component {
+class B extends Component {
   constructor () {
     super()
     this.state = {
@@ -37,7 +37,6 @@ class A extends Component {
   }
 
   changeHandler (event) {
-    console.log(event.target.name, event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -66,7 +65,6 @@ class A extends Component {
 
   render () {
     const { errors } = this.state
-    console.log(errors)
     return (
       <div className='container center'>
         <div className='row justify-content-center p-5'>
@@ -114,9 +112,8 @@ class A extends Component {
   }
 }
 
-A.propTypes = {
+B.propTypes = {
   fakeLogin: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
 
@@ -125,4 +122,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 })
 
-export default connect(mapStateToProps, { fakeLogin })(withRouter(A))
+export default connect(mapStateToProps, { fakeLogin })(withRouter(B))

@@ -57,11 +57,12 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <Switch>
-            <div className='App'>
-              <Navbar />
-              <Route exact path='/' component={Landing} />
-              <div className='container'>
+
+          <div className='App'>
+            <Navbar />
+            <div className='container'>
+              <Switch>
+                <Route exact path='/' component={Landing} />
                 <Route exact path='/a/' component={A} />
                 <Route exact path='/b/' component={B} />
                 <Route exact path='/c/' component={C} />
@@ -70,10 +71,10 @@ class App extends Component {
                 <Route exact path='/more/' component={More} />
                 <Route exact path='/user/' component={User} />
                 <Route exact path='/dashboard/' component={Dashboard} />
-              </div>
-              {/* <Footer /> */}
+              </Switch>
             </div>
-          </Switch>
+          </div>
+
         </Router>
       </Provider>
     )

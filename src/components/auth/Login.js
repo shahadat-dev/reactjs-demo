@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Message from '../common/Message'
-import { loginUser } from '../../actions/authActions'
 import TextFieldGroup from '../common/TextFieldGroup'
+import Spinner from '../common/Spinner'
+import { loginUser } from '../../actions/authActions'
 
 import validateLoginInput from '../validation/auth/login'
 
@@ -43,7 +44,6 @@ class Login extends Component {
   }
 
   changeHandler (event) {
-    console.log(event.target.name, event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -59,7 +59,6 @@ class Login extends Component {
 
   submitHandler (event) {
     event.preventDefault()
-    console.log(this.state)
     const userData = {
       email: this.state.email,
       password: this.state.password
@@ -73,9 +72,10 @@ class Login extends Component {
   render () {
     const { errors } = this.state
     const { success, error } = this.state.server
-    console.log(this.state, success, error)
-    return (
-      <div className='container center'>
+
+    const content = this.props.auth.isLoading
+      ? <Spinner />
+      : <div className='container center'>
         <div className='row justify-content-center p-5'>
 
           <div className='col-sm-6 mb-10'>
@@ -95,7 +95,7 @@ class Login extends Component {
                     value={this.state.email}
                     onChange={this.changeHandler}
                     error={errors.email}
-                  />
+                    />
                 </div>
                 <div className='form-group'>
                   <label htmlFor='password'>Password</label>
@@ -107,19 +107,23 @@ class Login extends Component {
                     value={this.state.password}
                     onChange={this.changeHandler}
                     error={errors.password}
-                  />
+                    />
                 </div>
 
-                <button type='submit' className='btn btn-info btn-lg btn-block'>
-                  Login
-                </button>
+                <button
+                  type='submit'
+                  className='btn btn-info btn-lg btn-block'
+                  >
+                    Login
+                  </button>
 
               </fieldset>
             </form>
           </div>
         </div>
       </div>
-    )
+
+    return content
   }
 }
 

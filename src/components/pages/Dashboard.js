@@ -14,7 +14,6 @@ class Dashboard extends Component {
     }
   }
   componentDidMount () {
-    console.log(this.props.auth)
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push('/')
     }
@@ -43,7 +42,7 @@ class Dashboard extends Component {
           <ul>
             {users &&
               users.map(user => (
-                <li>
+                <li key={user._id}>
                   <strong>{user.name}</strong>
                   {' '}
                   <i>

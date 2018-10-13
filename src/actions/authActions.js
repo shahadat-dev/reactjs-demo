@@ -5,16 +5,24 @@ import jwt_decode from 'jwt-decode'
 import {
   GET_ERRORS,
   SET_CURRENT_USER,
-  LIST_USERS,
-  SERVER_RESPONSE
+  SERVER_RESPONSE,
+  AUTH_LOADING
 } from './types'
 import { SERVER_URL } from '../config/url'
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
+  dispatch({
+    type: AUTH_LOADING,
+    payload: true
+  })
   axios
     .post(SERVER_URL + '/api/users/register', userData)
     .then(res => {
+      dispatch({
+        type: AUTH_LOADING,
+        payload: false
+      })
       history.push('/login')
       dispatch({
         type: SERVER_RESPONSE,
@@ -22,7 +30,6 @@ export const registerUser = (userData, history) => dispatch => {
       })
     })
     .catch(err => {
-      console.log(err)
       if (err.response) {
         dispatch({
           type: GET_ERRORS,
@@ -34,6 +41,10 @@ export const registerUser = (userData, history) => dispatch => {
 
 // Login - Get User Token
 export const loginUser = userData => dispatch => {
+  dispatch({
+    type: AUTH_LOADING,
+    payload: true
+  })
   axios
     .post(SERVER_URL + '/api/users/login', userData)
     .then(res => {
@@ -47,9 +58,12 @@ export const loginUser = userData => dispatch => {
       const decoded = jwt_decode(token)
       // Set current user
       dispatch(setCurrentUser(decoded))
+      dispatch({
+        type: AUTH_LOADING,
+        payload: false
+      })
     })
     .catch(err => {
-      console.log(err)
       if (err.response) {
         dispatch({
           type: GET_ERRORS,

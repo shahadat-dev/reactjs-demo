@@ -31,7 +31,6 @@ export const fakeLogin = userData => dispatch => {
       }
     })
     .catch(err => {
-      console.log(err)
       if (err.response) {
         dispatch({
           type: GET_ERRORS,

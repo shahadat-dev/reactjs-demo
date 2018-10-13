@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Pagination from 'react-js-pagination'
-import Message from '../common/Message'
 import Spinner from '../common/Spinner'
 import { logoutFakeUser } from '../../actions/fakeAuthActions'
 import { listFakeUsers } from '../../actions/fakeUserActions'
@@ -17,11 +16,8 @@ class C extends Component {
       errors: {},
       activePage: 1
     }
-
-    // this.submitHandler = this.submitHandler.bind(this)
   }
   componentDidMount () {
-    console.log(this.props.fakeAuth)
     if (!this.props.fakeAuth.isFakeAuthenticated) {
       this.props.history.push('/')
     }
@@ -47,13 +43,10 @@ class C extends Component {
   }
 
   handlePageChange (pageNumber) {
-    console.log(`active page is ${pageNumber}`)
     this.setState({ activePage: pageNumber })
     this.props.listFakeUsers(pageNumber)
   }
   render () {
-    console.log(this.state)
-    const { success, error } = this.state.server
     const { isFakeAuthenticated } = this.props.fakeAuth
 
     const user = isFakeAuthenticated ? this.props.fakeAuth.fakeUser.email : null
@@ -94,7 +87,7 @@ class C extends Component {
               <tbody>
                 {users &&
                     users.map(user => (
-                      <tr className='row'>
+                      <tr className='row' key={user.id}>
                         <td className='col-sm-2'>{user.id}</td>
                         <td className='col-sm-5'>{user.first_name}</td>
                         <td className='col-sm-5'>{user.last_name}</td>

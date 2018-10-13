@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import classnames from 'classnames'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import TextFieldGroup from '../common/TextFieldGroup'
+import Spinner from '../common/Spinner'
 import { registerUser } from '../../actions/authActions'
 
 import validateRegistrationInput from '../validation/auth/registration'
@@ -36,7 +36,6 @@ class Register extends Component {
   }
 
   changeHandler (event) {
-    // console.log(event.target.name, event.target.value)
     this.setState({ [event.target.name]: event.target.value })
   }
 
@@ -50,7 +49,6 @@ class Register extends Component {
 
   submitHandler (event) {
     event.preventDefault()
-    // console.log(this.state)
     const newUser = {
       name: this.state.name,
       email: this.state.email,
@@ -64,14 +62,10 @@ class Register extends Component {
   }
   render () {
     const { errors } = this.state
-    if (errors) {
-      console.log(errors)
-    }
 
-    const { user } = this.props.auth
-
-    return (
-      <div className='container center'>
+    const content = this.props.auth.isLoading
+      ? <Spinner />
+      : <div className='container center'>
         <div className='row justify-content-center p-5'>
           <div className='col-sm-6 mb-10'>
             <h3 className='h3 pb-1'>Register</h3>
@@ -80,7 +74,7 @@ class Register extends Component {
               noValidate
               onSubmit={this.submitHandler.bind(this)}
               method='POST'
-            >
+              >
               <fieldset>
                 <div className='form-group'>
                   <label htmlFor='name'>Name</label>
@@ -91,7 +85,7 @@ class Register extends Component {
                     value={this.state.name}
                     onChange={this.changeHandler}
                     error={errors.name}
-                  />
+                    />
                 </div>
                 <div className='form-group'>
                   <label htmlFor='email'>Email Address</label>
@@ -103,7 +97,7 @@ class Register extends Component {
                     value={this.state.email}
                     onChange={this.changeHandler}
                     error={errors.email}
-                  />
+                    />
                 </div>
                 <div className='form-group'>
                   <label htmlFor='password'>Password</label>
@@ -115,7 +109,7 @@ class Register extends Component {
                     value={this.state.password}
                     onChange={this.changeHandler}
                     error={errors.password}
-                  />
+                    />
                 </div>
                 <div className='form-group'>
                   <label htmlFor='password2'>Repeat Password</label>
@@ -127,19 +121,19 @@ class Register extends Component {
                     value={this.state.password2}
                     onChange={this.changeHandler}
                     error={errors.password2}
-                  />
+                    />
                 </div>
 
                 <button type='submit' className='btn btn-primary'>
-                  Submit
-                </button>
+                    Submit
+                  </button>
 
               </fieldset>
             </form>
           </div>
         </div>
       </div>
-    )
+    return content
   }
 }
 

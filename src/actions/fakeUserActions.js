@@ -24,6 +24,5 @@ export const listFakeUsers = activePage => dispatch => {
           payload: err.response.data
         })
       }
-      console.log(err)
     })
 }

@@ -1,9 +1,10 @@
 import isEmpty from 'lodash/isEmpty'
-import { SET_CURRENT_USER } from '../actions/types'
+import { SET_CURRENT_USER, AUTH_LOADING } from '../actions/types'
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
+  isLoading: false
 }
 
 export default function (state = initialState, action) {
@@ -13,6 +14,11 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload
+      }
+    case AUTH_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload
       }
     default:
       return state

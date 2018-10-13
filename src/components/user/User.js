@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import classnames from 'classnames'
 import { withRouter } from 'react-router-dom'
 import { listUsers } from '../../actions/userActions'
 
@@ -14,7 +13,6 @@ class User extends Component {
     }
   }
   componentDidMount () {
-    console.log(this.props.auth)
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push('/')
     }
@@ -35,12 +33,11 @@ class User extends Component {
 
   render () {
     const users = this.state.users.users
-    console.log(users)
     const items =
       users &&
       users.map(user => {
         return (
-          <tr>
+          <tr key={user._id}>
             <td>{user.firstName} {' '} {user.lastName}</td>
             <td>{user.username}</td>
             <td>{user.email}</td>
