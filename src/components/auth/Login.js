@@ -6,6 +6,8 @@ import Message from '../common/Message'
 import { loginUser } from '../../actions/authActions'
 import TextFieldGroup from '../common/TextFieldGroup'
 
+import validateLoginInput from '../validation/auth/login'
+
 class Login extends Component {
   constructor () {
     super()
@@ -47,6 +49,14 @@ class Login extends Component {
     })
   }
 
+  isValid (data) {
+    const { errors, isValid } = validateLoginInput(data)
+    if (!isValid) {
+      this.setState({ errors })
+    }
+    return isValid
+  }
+
   submitHandler (event) {
     event.preventDefault()
     console.log(this.state)
@@ -54,7 +64,10 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     }
-    this.props.loginUser(userData)
+    if (this.isValid(userData)) {
+      this.setState({ errors: {} })
+      this.props.loginUser(userData)
+    }
   }
 
   render () {

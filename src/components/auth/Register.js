@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import TextFieldGroup from '../common/TextFieldGroup'
 import { registerUser } from '../../actions/authActions'
 
+import validateRegistrationInput from '../validation/auth/registration'
+
 class Register extends Component {
   constructor () {
     super()
@@ -38,6 +40,14 @@ class Register extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  isValid (data) {
+    const { errors, isValid } = validateRegistrationInput(data)
+    if (!isValid) {
+      this.setState({ errors })
+    }
+    return isValid
+  }
+
   submitHandler (event) {
     event.preventDefault()
     // console.log(this.state)
@@ -47,9 +57,10 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     }
-    console.log(newUser)
-    this.props.registerUser(newUser, this.props.history)
-    // this.props.history.push('/login')
+    if (this.isValid(newUser)) {
+      this.setState({ errors: {} })
+      this.props.registerUser(newUser, this.props.history)
+    }
   }
   render () {
     const { errors } = this.state

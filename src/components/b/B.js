@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { fakeLogin } from '../../actions/fakeAuthActions'
 import TextFieldGroup from '../common/TextFieldGroup'
+import { fakeLogin } from '../../actions/fakeAuthActions'
+
+import validateLoginInput from '../validation/auth/login'
 
 class A extends Component {
   constructor () {
@@ -41,13 +43,25 @@ class A extends Component {
     })
   }
 
+  isValid (data) {
+    const { errors, isValid } = validateLoginInput(data)
+    if (!isValid) {
+      this.setState({ errors })
+    }
+    return isValid
+  }
+
   submitHandler (event) {
     event.preventDefault()
-    const userData = {
+    const loginData = {
       email: this.state.email,
       password: this.state.password
     }
-    this.props.fakeLogin(userData)
+
+    if (this.isValid(loginData)) {
+      this.setState({ errors: {} })
+      this.props.fakeLogin(loginData)
+    }
   }
 
   render () {
@@ -60,7 +74,7 @@ class A extends Component {
           <div className='col-sm-6 mb-10'>
             <h3 className='h3 pb-1'>Fake Login</h3>
             <hr />
-            <form onSubmit={this.submitHandler}>
+            <form noValidate onSubmit={this.submitHandler}>
               <fieldset>
                 <div className='form-group'>
                   <label htmlFor='email'>Email address</label>
