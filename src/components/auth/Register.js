@@ -49,7 +49,7 @@ class Register extends Component {
     }
     console.log(newUser)
     this.props.registerUser(newUser, this.props.history)
-    this.props.history.push('/login')
+    // this.props.history.push('/login')
   }
   render () {
     const { errors } = this.state

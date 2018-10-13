@@ -15,11 +15,11 @@ export const registerUser = (userData, history) => dispatch => {
   axios
     .post(SERVER_URL + '/api/users/register', userData)
     .then(res => {
+      history.push('/login')
       dispatch({
         type: SERVER_RESPONSE,
         payload: { success: `Welcome! You have been registered successfully.` }
       })
-      // history.push('/login')
     })
     .catch(err => {
       console.log(err)

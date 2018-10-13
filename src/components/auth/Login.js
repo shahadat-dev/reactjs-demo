@@ -70,7 +70,7 @@ class Login extends Component {
             {error && <Message msg={error} type='alert-danger' />}
             <h3 className='h3 pb-1'>Admin Panel Login</h3>
             <hr />
-            <form onSubmit={this.submitHandler}>
+            <form noValidate onSubmit={this.submitHandler}>
               <fieldset>
                 <div className='form-group'>
                   <label htmlFor='email'>Email address</label>
