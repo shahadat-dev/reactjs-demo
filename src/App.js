@@ -22,6 +22,8 @@ import User from './components/user/User'
 import './App.css'
 import Dashboard from './components/pages/Dashboard'
 
+import Test from './components/Test'
+
 // Check for fakeToken
 if (localStorage.fakeToken) {
   // Set auth token header auth
@@ -53,28 +55,27 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
-  render () {
+  render() {
     return (
       <Provider store={store}>
         <Router>
-
-          <div className='App'>
+          <div className="App">
             <Navbar />
-            <div className='container'>
+            <div className="container">
               <Switch>
-                <Route exact path='/' component={Landing} />
-                <Route exact path='/a/' component={A} />
-                <Route exact path='/b/' component={B} />
-                <Route exact path='/c/' component={C} />
-                <Route exact path='/register/' component={Register} />
-                <Route exact path='/login/' component={Login} />
-                <Route exact path='/more/' component={More} />
-                <Route exact path='/user/' component={User} />
-                <Route exact path='/dashboard/' component={Dashboard} />
+                <Route exact path="/test" component={Test} />
+                <Route exact path="/" component={Landing} />
+                <Route exact path="/a/" component={A} />
+                <Route exact path="/b/" component={B} />
+                <Route exact path="/c/" component={C} />
+                <Route exact path="/register/" component={Register} />
+                <Route exact path="/login/" component={Login} />
+                <Route exact path="/more/" component={More} />
+                <Route exact path="/user/" component={User} />
+                <Route exact path="/dashboard/" component={Dashboard} />
               </Switch>
             </div>
           </div>
-
         </Router>
       </Provider>
     )

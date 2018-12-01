@@ -12,6 +12,9 @@
 # production
 /build
 
+#google-cloud-folder
+/reactjs-boilerplate
+
 # misc
 .DS_Store
 .env.local
