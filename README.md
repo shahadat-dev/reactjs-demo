@@ -16,7 +16,7 @@ You can add and close draggable and resizable box
 
 ## B
 
-Fake login at [reqres.in](https://reqres.in)
+Login at [reqres.in](https://reqres.in)
 
 ## C
 
@@ -25,7 +25,7 @@ Data fetched from the fake server [reqres.in](https://reqres.in)
 ## More
 
 Real login and registration
-Database stored at [mbla.com](www.mlab.com) and express server hosted at [heroku](www.heroku.com)
+Database stored at [mlab.com](www.mlab.com) and express server hosted at [heroku](www.heroku.com)
 
 ## Test
 
