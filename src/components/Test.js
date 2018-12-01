@@ -27,7 +27,8 @@ class Test extends Component {
     this.setState({ nameArr: arr, name: '' })
   }
 
-  deleteHandler(name) {
+  deleteHandler(event, name) {
+    event.preventDefault()
     let arr = [...this.state.nameArr]
     for (var i = 0; i <= arr.length - 1; i++) {
       if (arr[i] === name) {
@@ -53,7 +54,7 @@ class Test extends Component {
           <button type="submit">Add</button>
         </form>
         {this.state.nameArr.map(item => (
-          <Item name={item} delete={() => this.deleteHandler(item)} />
+          <Item name={item} delete={event => this.deleteHandler(event, item)} />
         ))}
       </div>
     )
